@@ -28,8 +28,13 @@ const About = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-emerald-600 to-emerald-700 text-white py-20" role="banner">
-        <div className="absolute inset-0 bg-black opacity-20"></div>
+      <section className="relative bg-gradient-to-br from-emerald-600 via-emerald-700 to-teal-800 text-white py-24 overflow-hidden" role="banner">
+        <div className="absolute inset-0 bg-black opacity-30"></div>
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-80 h-80 bg-teal-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
+        </div>
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -39,10 +44,10 @@ const About = () => {
           aria-label="Food manufacturing facility"
         ></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in-up">
             Trusted Ingredient Sourcing Since 2011
           </h1>
-          <p className="text-xl md:text-2xl text-emerald-100 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-emerald-100 max-w-3xl mx-auto animate-fade-in-up animation-delay-300">
             Building partnerships that help food manufacturers succeed with quality ingredients and reliable service.
           </p>
         </div>
@@ -125,33 +130,54 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-16 bg-gray-50" aria-labelledby="values-heading">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white relative" aria-labelledby="values-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-block">
+              <h2 id="values-heading" className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4">
+                Our Core Values
+              </h2>
+              <div className="h-1 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full mx-auto w-24"></div>
+            </div>
+          </div>
           <div className="text-center mb-12">
-            <h2 id="values-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Core Values
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               These principles guide everything we do and shape our relationships with clients and suppliers.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-10">
             {values.map((value, index) => {
               const IconComponent = value.icon;
+              const colors = [
+                { bg: 'from-emerald-100 to-emerald-200', icon: 'text-emerald-600', hover: 'group-hover:from-emerald-200 group-hover:to-emerald-300' },
+                { bg: 'from-blue-100 to-blue-200', icon: 'text-blue-600', hover: 'group-hover:from-blue-200 group-hover:to-blue-300' },
+                { bg: 'from-orange-100 to-orange-200', icon: 'text-orange-600', hover: 'group-hover:from-orange-200 group-hover:to-orange-300' },
+                { bg: 'from-purple-100 to-purple-200', icon: 'text-purple-600', hover: 'group-hover:from-purple-200 group-hover:to-purple-300' }
+              ];
+              const color = colors[index % colors.length];
+              
               return (
-                <div key={index} className="bg-white rounded-xl shadow-lg p-8">
+                <div key={index} className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 hover:border-emerald-200 relative overflow-hidden">
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  <div className="relative z-10">
                   <div className="flex items-center mb-4">
-                    <div className="bg-emerald-100 p-3 rounded-lg">
-                      <IconComponent className="h-8 w-8 text-emerald-600" aria-hidden="true" />
+                    <div className={`bg-gradient-to-br ${color.bg} ${color.hover} p-4 rounded-xl transition-all duration-300 shadow-lg group-hover:shadow-xl`}>
+                      <IconComponent className={`h-8 w-8 ${color.icon}`} aria-hidden="true" />
                     </div>
-                    <h3 className="text-2xl font-semibold text-gray-900 ml-4">
+                    <h3 className="text-2xl font-bold text-gray-900 ml-4 group-hover:text-emerald-800 transition-colors duration-300">
                       {value.title}
                     </h3>
                   </div>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
                     {value.description}
                   </p>
+                  </div>
+                  
+                  {/* Decorative corner */}
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-emerald-100 to-transparent rounded-bl-full opacity-50"></div>
                 </div>
               );
             })}
@@ -160,32 +186,44 @@ const About = () => {
       </section>
 
       {/* Team/Partnership Section */}
-      <section className="py-16 bg-white" role="region" aria-labelledby="partnership-heading">
+      <section className="py-20 bg-white relative" role="region" aria-labelledby="partnership-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 id="partnership-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-            Built on Strong Partnerships
-          </h2>
-          <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+          <div className="inline-block mb-8">
+            <h2 id="partnership-heading" className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4">
+              Built on Strong Partnerships
+            </h2>
+            <div className="h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto w-32"></div>
+          </div>
+          <p className="text-xl text-gray-600 mb-16 max-w-3xl mx-auto leading-relaxed">
             Our success comes from the relationships we've built with suppliers, manufacturers, 
             and logistics partners across the food industry.
           </p>
           
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Supplier Network</h3>
-              <p className="text-gray-600">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="group bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border border-gray-200 hover:border-emerald-300">
+              <div className="bg-gradient-to-br from-emerald-100 to-emerald-200 p-4 rounded-xl w-fit mx-auto mb-4 group-hover:from-emerald-200 group-hover:to-emerald-300 transition-all duration-300">
+                <Package className="h-8 w-8 text-emerald-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-emerald-800 transition-colors duration-300">Supplier Network</h3>
+              <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
                 Vetted suppliers across North America ensuring quality and reliability
               </p>
             </div>
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Logistics Partners</h3>
-              <p className="text-gray-600">
+            <div className="group bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border border-gray-200 hover:border-blue-300">
+              <div className="bg-gradient-to-br from-blue-100 to-blue-200 p-4 rounded-xl w-fit mx-auto mb-4 group-hover:from-blue-200 group-hover:to-blue-300 transition-all duration-300">
+                <Truck className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-800 transition-colors duration-300">Logistics Partners</h3>
+              <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
                 Reliable transportation networks for on-time delivery nationwide
               </p>
             </div>
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Industry Expertise</h3>
-              <p className="text-gray-600">
+            <div className="group bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border border-gray-200 hover:border-orange-300">
+              <div className="bg-gradient-to-br from-orange-100 to-orange-200 p-4 rounded-xl w-fit mx-auto mb-4 group-hover:from-orange-200 group-hover:to-orange-300 transition-all duration-300">
+                <Award className="h-8 w-8 text-orange-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-800 transition-colors duration-300">Industry Expertise</h3>
+              <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
                 Deep knowledge of food safety, regulations, and market trends
               </p>
             </div>
